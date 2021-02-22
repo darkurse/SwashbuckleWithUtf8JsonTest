@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Swagger Generator opt-in component to support Utf8Json serializer behaviors</Description>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.0;net5.0</TargetFrameworks>
+    <PackageId>Swashbuckle.AspNetCore.Newtonsoft</PackageId>
+    <PackageTags>swagger;documentation;discovery;help;webapi;aspnet;aspnetcore;utf8json</PackageTags>
+    <PackageProjectUrl>https://github.com/domaindrivendev/Swashbuckle.AspNetCore</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/domaindrivendev/Swashbuckle.AspNetCore.git</RepositoryUrl>
+    <SignAssembly Condition="'$(OS)'=='Windows_NT'">true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Swashbuckle.AspNetCore.Utf8Json.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Utf8Json" Version="1.3.7" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.0.7" />
+  </ItemGroup>
+
+</Project>

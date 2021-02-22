@@ -27,7 +27,7 @@ namespace SwashbuckleWithUtf8JsonTest
                 .AddMvcCore()
                 .AddApiExplorer()
                 // note: If I comment out the AddMvcOptions section, it works
-                .AddMvcOptions(option => 
+                .AddMvcOptions(option =>
                 {
                     option.OutputFormatters.Clear();
                     option.OutputFormatters.Add(new Utf8JsonOutputFormatter(Utf8JsonContractResolver.Instance));
@@ -62,7 +62,7 @@ namespace SwashbuckleWithUtf8JsonTest
                 o.IncludeXmlComments(xmlPath);
                 o.CustomSchemaIds(i => i.FullName);
             });
-
+         //   services.AddSwaggerGenUtf8JsonSupport();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

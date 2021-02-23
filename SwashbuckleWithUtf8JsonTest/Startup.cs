@@ -8,6 +8,7 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.IO;
 using System.Reflection;
+using Utf8Json;
 
 namespace SwashbuckleWithUtf8JsonTest
 {
@@ -36,6 +37,9 @@ namespace SwashbuckleWithUtf8JsonTest
                     option.InputFormatters.Add(new Utf8JsonInputFormatter(Utf8JsonContractResolver.Instance));
                 });
 
+
+            services.AddSingleton<IJsonFormatterResolver>(o => Utf8JsonContractResolver.Instance);
+
             services.AddSwaggerGen(o =>
             {
                 o.SwaggerDoc("v1", new OpenApiInfo
@@ -62,7 +66,7 @@ namespace SwashbuckleWithUtf8JsonTest
                 o.IncludeXmlComments(xmlPath);
                 o.CustomSchemaIds(i => i.FullName);
             });
-         //   services.AddSwaggerGenUtf8JsonSupport();
+            services.AddSwaggerGenUtf8JsonSupport();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

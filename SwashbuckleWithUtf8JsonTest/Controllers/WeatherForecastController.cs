@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace SwashbuckleWithUtf8JsonTest.Controllers
 {
+
+    /// <summary>
+    /// Le weather forecast controller
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -23,6 +27,10 @@ namespace SwashbuckleWithUtf8JsonTest.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Getting le forecast
+        /// </summary>
+        /// <returns>Le forecast</returns>
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
@@ -36,6 +44,10 @@ namespace SwashbuckleWithUtf8JsonTest.Controllers
             .ToArray();
         }
 
+        /// <summary>
+        /// Setting le forecast
+        /// </summary>
+        /// <param name="p">Le parameter</param>
         [HttpPost]
         public void Set([FromBody]WeatherForecast p)
         {

@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using Utf8Json;
 
 namespace SwashbuckleWithUtf8JsonTest
 {
-    internal sealed class Utf8JsonInputFormatter : IInputFormatter
+    internal sealed class Utf8JsonInputFormatter : TextInputFormatter
     {
         private readonly IJsonFormatterResolver _resolver;
 
@@ -12,11 +14,14 @@ namespace SwashbuckleWithUtf8JsonTest
         public Utf8JsonInputFormatter(IJsonFormatterResolver resolver)
         {
             _resolver = resolver ?? JsonSerializer.DefaultResolver;
+
+            SupportedEncodings.Add(UTF8EncodingWithoutBOM);
+            SupportedEncodings.Add(UTF16EncodingLittleEndian);
+
+            SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/json"));
         }
 
-        public bool CanRead(InputFormatterContext context) => context.HttpContext.Request.ContentType.StartsWith("application/json");
-
-        public async Task<InputFormatterResult> ReadAsync(InputFormatterContext context)
+        public async override Task<InputFormatterResult> ReadAsync(InputFormatterContext context)
         {
             var request = context.HttpContext.Request;
 
@@ -25,6 +30,11 @@ namespace SwashbuckleWithUtf8JsonTest
 
             var result = await JsonSerializer.NonGeneric.DeserializeAsync(context.ModelType, request.Body, _resolver);
             return await InputFormatterResult.SuccessAsync(result);
+        }
+
+        public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+        {
+            return ReadAsync(context);
         }
     }
 }
